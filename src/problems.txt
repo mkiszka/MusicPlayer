@@ -1,0 +1,15 @@
+  //Playlista - cel: wykorzystanie tego samego komponentu co liście pobranej z api
+  //Nie jestem przekonany czy wykorzystanie tego samego <Songs> komponentu do list,
+  // które jednak różnią się liczbą kolumn to dobry pomyśł
+  //Problem 1. Jak dodać do tablicy playlist żeby React się odświeżył
+  //Rozwiązanie: handleAddToPlaylist dodano  setPlaylistSongs((playlistSongs) => [...playlistSongs, selectedSong]);
+  //choć wolałbym dodawać jeden element wrost do tabilcy niż tworzyć nową tablicą z starej i nowej. Być może jest to mało optymalne ?
+  //Problem 2. Przy umożliwieniu dodawania dwóch tych samych piosenek do listy, klucz oparty na URL, nie jest poprawny
+  // - postanowiłem, użyć unikalneklucza generowanego przez uniqid() z biblioteki uniqid
+  // - przy dodawaniu do playlistSongs trzeba klonowac obiekty, w przeciwnym razie jako, że przekazywanie odbywa się przez referencje, playlista nie działała by poprawnie.
+  // Przy kliknięci dodaj, za każdym razem dodawany był obiekt do lisy poprzez referencje. Mimo że lista wyświetlana była poprawnie
+  // to ustawiając nowy klucz uniqid zmienieło się także w już dodanych piosenkach.
+  //Problem 3. Problem z dodawaniem do playlisty pozycji ale nie wyświetała się nazwa piosenki i wykonawca.
+  // próba znalezienia błędu przy pomocy Console.Log nic nie dawała.
+  // Zapozanełem się z Kurs Reacta - Fundamenty -> Testowanie i obsługa błędów -> Lekcja 7 Debugger
+  // i błąd w kodzie sięznalazł

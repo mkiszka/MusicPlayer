@@ -10,3 +10,15 @@
   font-weight: bold;
   cursor: pointer;
 }
+
+.ParentElement {
+  display: flex;
+  width: 95%;
+}
+
+.ChildElement {
+  flex: 1;
+}
+.ChildActionElement {
+  flex: 0 0 15px;
+}

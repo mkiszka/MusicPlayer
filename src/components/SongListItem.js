@@ -1,15 +1,40 @@
 import "./SongListItem.css";
 
-export function SongListItem({ song, isCurrent, onSelect }) {
+export function SongListItem({
+  song,
+  isCurrent,
+  onSelect,
+  onAction,
+  showLog = false
+}) {
   function handleClick() {
-    onSelect(song);
+    if (onSelect) {
+      onSelect(song);
+    }
   }
+  function handleActionClick() {
+    if (onAction) {
+      onAction(song);
+    }
+  }
+  if (showLog) {
+    console.log(song);
+  }
+
   return (
     <li
-      className={`SongListItem ${isCurrent ? "selected" : ""}`}
+      className={`SongListItem ParentElement ${isCurrent ? "selected" : ""}`}
       onClick={handleClick}
     >
-      {song.title} by {song.artist}
+      <div className={"ChildElement"}>
+        {song.title} by {song.artist}
+      </div>
+      <div
+        className={"ChildElement ChildActionElement"}
+        onClick={handleActionClick}
+      >
+        [+]
+      </div>
     </li>
   );
 }

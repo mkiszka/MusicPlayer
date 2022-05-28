@@ -3,9 +3,26 @@ import { Heading } from "./Heading";
 import { SongListItem } from "./SongListItem";
 import { SongPlayer } from "./SongPlayer";
 import { Songs } from "./Songs";
+import uniqid from "uniqid";
 import "./App.css";
 
 export function App() {
+  function handleSelectPlaylistSong(selectedSong) {
+    debugger;
+    const audioIndex = playlistSongs.findIndex(
+      (playlistSong) => playlistSong.key === selectedSong.key
+    );
+    if (audioIndex >= 0) {
+      setCurrentPlaylistSongIndex(audioIndex);
+    }
+  }
+  function handleAddToPlaylist(selectedSong) {
+    console.log(selectedSong);
+    debugger;
+    let song = Object.assign({}, selectedSong);
+    song.key = uniqid();
+    setPlaylistSongs([...playlistSongs, song]);
+  }
   function handleSelectSong(selectedSong) {
     const audioIndex = songs.findIndex(
       (song) => song.audioUrl === selectedSong.audioUrl
@@ -14,9 +31,15 @@ export function App() {
       setCurrentSongIndex(audioIndex);
     }
   }
-
   const URL = "https://examples.devmastery.pl/songs-api/songs";
   const [songs, setSongs] = useState([]);
+  const [playlistSongs, setPlaylistSongs] = useState([]);
+  const [currentPlaylistSongIndex, setCurrentPlaylistSongIndex] = useState(0);
+  const currentPlaylistSong = playlistSongs[currentPlaylistSongIndex];
+
+  const [currentSongIndex, setCurrentSongIndex] = useState(0);
+  const currentSong = songs[currentSongIndex];
+
   useEffect(() => {
     fetch(URL).then((response) => {
       if (response.ok) {
@@ -24,8 +47,6 @@ export function App() {
       }
     });
   }, []);
-  const [currentSongIndex, setCurrentSongIndex] = useState(0);
-  const currentSong = songs[currentSongIndex];
 
   return (
     <div className="App">
@@ -33,7 +54,23 @@ export function App() {
         "Loading..."
       ) : (
         <>
-          <SongPlayer song={currentSong} />
+          <SongPlayer song={currentSong} showControls={true} />
+          <Songs>
+            <Heading title="Playlist" />
+            <ul>
+              {playlistSongs.map((playlistSong) => {
+                return (
+                  <SongListItem
+                    key={playlistSong.key}
+                    song={playlistSong}
+                    isCurrent={currentPlaylistSong.key === playlistSong.key}
+                    onSelect={handleSelectPlaylistSong}
+                  />
+                );
+              })}
+            </ul>
+          </Songs>
+
           <Songs>
             <Heading title="Songs" />
             <ul>
@@ -43,6 +80,7 @@ export function App() {
                   song={song}
                   isCurrent={currentSong.audioUrl === song.audioUrl}
                   onSelect={handleSelectSong}
+                  onAction={handleAddToPlaylist}
                 />
               ))}
             </ul>
