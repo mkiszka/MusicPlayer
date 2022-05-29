@@ -24,16 +24,10 @@ export function App() {
     //audioRef.current.play();
   }
   function handleOnEnded(event) {
-    console.log(playlistSongs.length);
-    console.log(currentPlaylistSongIndex);
-
     let newCurrentPlalistSongIndex = currentPlaylistSongIndex + 1;
-    console.log(newCurrentPlalistSongIndex);
-
     if (playlistSongs.length <= newCurrentPlalistSongIndex) {
       newCurrentPlalistSongIndex = 0;
     }
-    console.log(newCurrentPlalistSongIndex);
     setCurrentPlaylistSongIndex(newCurrentPlalistSongIndex);
   }
   function handleAddToPlaylist(selectedSong) {
