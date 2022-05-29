@@ -33,7 +33,7 @@
   //   to niestety powodowało, że dopiero drugie kliknięcie w tą samą pozycję odtwarzało muzykę.
   //   Okazało się, że w momencie wywołania Play() komponent ma jeszcze nieuaktualnione właściwości i ponowne renderowanie dopiero wykonuje się po wyjściu z funkcji. 
   //
-  // Rozwiązaniem zostało, użycie useEffect w komponencie SongListItem. Jako props onAfterRender przekazanie funkcji z App wykonującej audioRef.current.play();
+  // Rozwiązanie: użycie useEffect w komponencie SongListItem. Jako props onAfterRender przekazanie funkcji z App wykonującej audioRef.current.play();
 
 
 
