@@ -1,5 +1,4 @@
 .SongListItem {
-  padding: 10px;
   border-radius: 5px;
   cursor: pointer;
 }
@@ -18,6 +17,9 @@
 
 .ChildElement {
   flex: 1;
+  /* height: 100%;
+  width: 100%; */
+  padding: 10px;
 }
 .ChildActionElement {
   flex: 0 0 15px;
