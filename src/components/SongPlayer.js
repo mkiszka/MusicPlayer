@@ -1,8 +1,14 @@
 import { Heading } from "./Heading";
 import "./SongPlayer.css";
 
-export function SongPlayer({ audioRef, autoPlay, showControls = false, song }) {
-  const { audioUrl, coverUrl } = song == null ? [null, null] : song;
+export function SongPlayer({
+  audioRef,
+  autoPlay,
+  showControls = false,
+  song,
+  onEnded
+}) {
+  const { audioUrl, coverUrl, key } = song == null ? [null, null, null] : song;
 
   return (
     <section className="SongPlayer">
@@ -15,9 +21,10 @@ export function SongPlayer({ audioRef, autoPlay, showControls = false, song }) {
 
       <audio
         ref={audioRef}
-        key={audioUrl}
+        key={key}
         controls={showControls}
         autoPlay={autoPlay}
+        onEnded={onEnded}
       >
         {" "}
         pl
