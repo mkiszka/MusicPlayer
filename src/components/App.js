@@ -23,7 +23,7 @@ export function App() {
     //Don't remove handleSelectPlaySong. It's left for educational purposes.
     //audioRef.current.play();
   }
-  function handleOnEnded(event) {
+  function handleEnded(event) {
     let newCurrentPlalistSongIndex = currentPlaylistSongIndex + 1;
     if (playlistSongs.length <= newCurrentPlalistSongIndex) {
       newCurrentPlalistSongIndex = 0;
@@ -90,7 +90,7 @@ export function App() {
             song={currentPlaylistSong}
             showControls={true}
             autoPlay={true}
-            onEnded={handleOnEnded}
+            onEnded={handleEnded}
           />
           <Songs>
             <Heading title="Playlist" />
