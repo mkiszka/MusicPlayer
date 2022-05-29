@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Heading } from "./Heading";
 import { SongListItem } from "./SongListItem";
 import { SongPlayer } from "./SongPlayer";
+
 import { Songs } from "./Songs";
 import uniqid from "uniqid";
 import "./App.css";
 
 export function App() {
+  const audioRef = useRef();
   function handleSelectPlaylistSong(selectedSong) {
     debugger;
     const audioIndex = playlistSongs.findIndex(
@@ -16,9 +18,10 @@ export function App() {
       setCurrentPlaylistSongIndex(audioIndex);
     }
   }
+  function handleSelectPlaySong() {
+    audioRef.current.play();
+  }
   function handleAddToPlaylist(selectedSong) {
-    console.log(selectedSong);
-    debugger;
     let song = Object.assign({}, selectedSong);
     song.key = uniqid();
     setPlaylistSongs([...playlistSongs, song]);
@@ -54,7 +57,11 @@ export function App() {
         "Loading..."
       ) : (
         <>
-          <SongPlayer song={currentSong} showControls={true} />
+          <SongPlayer
+            audioRef={audioRef}
+            song={currentPlaylistSong}
+            showControls={true}
+          />
           <Songs>
             <Heading title="Playlist" />
             <ul>
@@ -65,6 +72,7 @@ export function App() {
                     song={playlistSong}
                     isCurrent={currentPlaylistSong.key === playlistSong.key}
                     onSelect={handleSelectPlaylistSong}
+                    onAfterRender={handleSelectPlaySong}
                   />
                 );
               })}

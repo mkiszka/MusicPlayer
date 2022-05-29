@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import "./SongListItem.css";
 
 export function SongListItem({
@@ -5,6 +6,7 @@ export function SongListItem({
   isCurrent,
   onSelect,
   onAction,
+  onAfterRender,
   showLog = false
 }) {
   function handleClick() {
@@ -20,6 +22,12 @@ export function SongListItem({
   if (showLog) {
     console.log(song);
   }
+
+  useEffect(() => {
+    if (onAfterRender) {
+      onAfterRender();
+    }
+  });
 
   return (
     <li

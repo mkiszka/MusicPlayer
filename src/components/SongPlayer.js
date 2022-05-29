@@ -1,15 +1,16 @@
-import { useRef } from "react";
 import { Heading } from "./Heading";
 import "./SongPlayer.css";
 
-export function SongPlayer({ showControls = false, song }) {
-  const audioRef = useRef();
-  const { audioUrl, coverUrl } = song;
+export function SongPlayer({ audioRef, showControls = false, song }) {
+  const { audioUrl, coverUrl } = song == null ? ["none", "none"] : song;
+
   return (
     <section className="SongPlayer">
       <Heading title="Music Player" />
       <img width="250" height="250" src={coverUrl} alt="Song cover" />
       <audio ref={audioRef} key={audioUrl} controls={showControls}>
+        {" "}
+        pl
         <source src={audioUrl} />
       </audio>
       <div>
