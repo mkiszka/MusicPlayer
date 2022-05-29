@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { Heading } from "./Heading";
 import { SongListItem } from "./SongListItem";
+import { SongPlaylistActionContent } from "./SongListItem";
+import { SongListActionContent } from "./SongListItem";
 import { SongPlayer } from "./SongPlayer";
 
 import { Songs } from "./Songs";
@@ -8,7 +10,6 @@ import uniqid from "uniqid";
 import "./App.css";
 
 export function App() {
-  const audioRef = useRef();
   function handleSelectPlaylistSong(selectedSong) {
     debugger;
     const audioIndex = playlistSongs.findIndex(
@@ -26,6 +27,20 @@ export function App() {
     song.key = uniqid();
     setPlaylistSongs([...playlistSongs, song]);
   }
+  function handleRemoveFromPlaylist(selectedSong) {
+    if (
+      currentPlaylistSong != null &&
+      selectedSong.key === currentPlaylistSong.key
+    ) {
+      audioRef.current.pause();
+      setCurrentPlaylistSongIndex(-1);
+    }
+    const newPlaylistSongs = playlistSongs.filter((song) => {
+      return song.key !== selectedSong.key;
+    });
+
+    setPlaylistSongs(newPlaylistSongs);
+  }
   function handleSelectSong(selectedSong) {
     const audioIndex = songs.findIndex(
       (song) => song.audioUrl === selectedSong.audioUrl
@@ -34,11 +49,16 @@ export function App() {
       setCurrentSongIndex(audioIndex);
     }
   }
+
+  const audioRef = useRef();
   const URL = "https://examples.devmastery.pl/songs-api/songs";
   const [songs, setSongs] = useState([]);
   const [playlistSongs, setPlaylistSongs] = useState([]);
   const [currentPlaylistSongIndex, setCurrentPlaylistSongIndex] = useState(0);
-  const currentPlaylistSong = playlistSongs[currentPlaylistSongIndex];
+  const currentPlaylistSong =
+    currentPlaylistSongIndex === -1
+      ? null
+      : playlistSongs[currentPlaylistSongIndex];
 
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const currentSong = songs[currentSongIndex];
@@ -70,9 +90,15 @@ export function App() {
                   <SongListItem
                     key={playlistSong.key}
                     song={playlistSong}
-                    isCurrent={currentPlaylistSong.key === playlistSong.key}
+                    isCurrent={
+                      currentPlaylistSong == null
+                        ? false
+                        : currentPlaylistSong.key === playlistSong.key
+                    }
                     onSelect={handleSelectPlaylistSong}
                     onAfterRender={handleSelectPlaySong}
+                    onAction={handleRemoveFromPlaylist}
+                    actionContent={SongPlaylistActionContent}
                   />
                 );
               })}
@@ -89,6 +115,7 @@ export function App() {
                   isCurrent={currentSong.audioUrl === song.audioUrl}
                   onSelect={handleSelectSong}
                   onAction={handleAddToPlaylist}
+                  actionContent={SongListActionContent}
                 />
               ))}
             </ul>

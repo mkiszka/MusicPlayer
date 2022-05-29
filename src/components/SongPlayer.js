@@ -1,9 +1,12 @@
+import { useEffect } from "react";
 import { Heading } from "./Heading";
 import "./SongPlayer.css";
 
 export function SongPlayer({ audioRef, showControls = false, song }) {
   const { audioUrl, coverUrl } = song == null ? ["none", "none"] : song;
-
+  useEffect(() => {
+    console.log("a");
+  });
   return (
     <section className="SongPlayer">
       <Heading title="Music Player" />
