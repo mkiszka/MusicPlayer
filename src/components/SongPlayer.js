@@ -1,12 +1,9 @@
-import { useEffect } from "react";
 import { Heading } from "./Heading";
 import "./SongPlayer.css";
 
-export function SongPlayer({ audioRef, showControls = false, song }) {
+export function SongPlayer({ audioRef, autoPlay, showControls = false, song }) {
   const { audioUrl, coverUrl } = song == null ? [null, null] : song;
-  useEffect(() => {
-    console.log("a");
-  });
+
   return (
     <section className="SongPlayer">
       <Heading title="Music Player" />
@@ -16,7 +13,12 @@ export function SongPlayer({ audioRef, showControls = false, song }) {
         <img width="250" height="250" src={coverUrl} alt="Song cover" />
       )}
 
-      <audio ref={audioRef} key={audioUrl} controls={showControls}>
+      <audio
+        ref={audioRef}
+        key={audioUrl}
+        controls={showControls}
+        autoPlay={autoPlay}
+      >
         {" "}
         pl
         <source src={audioUrl} />

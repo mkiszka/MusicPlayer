@@ -31,7 +31,7 @@ export function SongListItem({
 
   useEffect(() => {
     if (onAfterRender) {
-      onAfterRender();
+      //  onAfterRender();
     }
   });
 

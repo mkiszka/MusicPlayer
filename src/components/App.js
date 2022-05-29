@@ -20,7 +20,8 @@ export function App() {
     }
   }
   function handleSelectPlaySong() {
-    audioRef.current.play();
+    //Don't remove handleSelectPlaySong. It's left for educational purposes.
+    //audioRef.current.play();
   }
   function handleAddToPlaylist(selectedSong) {
     let song = Object.assign({}, selectedSong);
@@ -81,6 +82,7 @@ export function App() {
             audioRef={audioRef}
             song={currentPlaylistSong}
             showControls={true}
+            autoPlay={true}
           />
           <Songs>
             <Heading title="Playlist" />
