@@ -26,14 +26,12 @@ export function SongPlayer({
         autoPlay={autoPlay}
         onEnded={onEnded}
       >
-        {" "}
-        pl
         <source src={audioUrl} />
       </audio>
-      <div>
+      {/* <div>
         <button onClick={() => audioRef.current.play()}>Play</button>
         <button onClick={() => audioRef.current.pause()}>Pause</button>
-      </div>
+      </div> */}
     </section>
   );
 }

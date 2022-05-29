@@ -1,10 +1,21 @@
 import { useEffect } from "react";
 import "./SongListItem.css";
+import { MdOutlineAddCircle } from "react-icons/md";
+import { MdOutlineRemoveCircle } from "react-icons/md";
+
 export function SongPlaylistActionContent() {
-  return <span>[-]</span>;
+  return (
+    <span>
+      <MdOutlineRemoveCircle />
+    </span>
+  );
 }
 export function SongListActionContent() {
-  return <span>[+]</span>;
+  return (
+    <span>
+      <MdOutlineAddCircle />
+    </span>
+  );
 }
 export function SongListItem({
   song,
@@ -44,6 +55,7 @@ export function SongListItem({
         className={"ChildElement ChildActionElement"}
         onClick={handleActionClick}
       >
+        {" "}
         {actionContent()}
       </div>
     </li>
